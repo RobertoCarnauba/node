@@ -39,10 +39,10 @@ moogoose.model('usuarios', UsusarioSchema )
 
 const userNew = moogoose.model('usuarios')
 new userNew({
-    nome:"Marcela",
+    nome:"Francisca ",
     sobreNome:" Dias",
-    email:"Marcelaluiz@hotmail.com",
-    idade: 2,
+    email:"RobertoDias@hotmail.com",
+    idade: 32,
     pais:"America"
 }).save().then(()=>{
     console.log('User cadastrado com sucesso')
