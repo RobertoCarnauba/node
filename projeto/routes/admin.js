@@ -71,10 +71,10 @@ router.get("/categorias/edit/:id", (req, res) => {
    })
 })
 
-router.post("/categorias/edit" , (req, res) => {
-   Categoria.findOne({_id: req.params.id}).then((categoria)=>{
-      categoria.nome = req.body.nome
-      categoria.slug = req.body.slug
+router.post("/categorias/edit", (req, res) => {
+   Categoria.findOne({_id:req.body.id}).then((categoria)=>{
+      categoria.nome =  req.body.nome
+      categoria.slug =  req.body.slug
 
       categoria.save().then(()=>{
          req.flash("success_msg", "Categoria editada com sucesso")
