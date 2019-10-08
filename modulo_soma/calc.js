@@ -3,8 +3,8 @@ var subtra = require("./sub")
 var mult = require("./mult")
 var divi = require("./divi")
 
-var a = 2
-var b = 4
+var a = 8
+var b = 2
 
 console.log(soma(a,b))
 console.log(subtra(a,b))
