@@ -12,7 +12,8 @@ require("./models/Postagem")
 require("./models/Categoria")
 const Postagem = mongoose.model("postagens")
 const Categoria = mongoose.model("categorias")
-const usuarios = require("./routes/usuarios")
+// const passport = require("passport-local")
+// require("./config/auth")(passport)
 
 //configurações
 app.use(session({
@@ -20,6 +21,8 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }))
+// app.use(passport.initialize())
+// app.use(passport.session())
 app.use(flash())
 
 //Middleware
@@ -112,7 +115,6 @@ app.get("/404", (req, res) => {
 
 
 app.use('/admin', admin)
-app.use('/usuarios', usuarios)
 
 app.get('/posts', (req, res) => {
     res.send('Rota para os posts: ')
