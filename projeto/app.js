@@ -12,6 +12,7 @@ require("./models/Postagem")
 require("./models/Categoria")
 const Postagem = mongoose.model("postagens")
 const Categoria = mongoose.model("categorias")
+const usuarios = require("./routes/usuarios")
 
 //configurações
 app.use(session({
@@ -34,7 +35,7 @@ app.use(bodyParse.json())
 
 //Handlebars
 app.engine('handlebars', handlebars({ defaultLayout: 'main' }))
-app.set('view engine', 'handlebars')
+// app.set('view engine', 'handlebars')
 app.set('view engine', 'handlebars')
 app.set('views', path.join(__dirname, 'views'))
 
@@ -84,13 +85,14 @@ app.get("/categorias", (req, res) => {
 })
 
 app.get("/categorias/:slug", (req, res) => {
-    Categoria.findOne({ slug: req.params }).then((categoria) => {
+    Categoria.findOne({ slug: req.params.slug }).then((categoria) => {
         if (categoria) {
-            Postagem.find({ categoria: categoria._id }).then((postagens) => {
-                res.render("categoria/postagens", {postagens:postagens, categorias:categorias })
+         
+            Postagem.find({categoria: categoria._id}).then((postagens)=>{
+               res.render("categorias/postagens", {postagens:postagens,categoria:categoria})
             }).catch((err)=>{
-                req.flash("error_msg", "Houve um erro ao listar os post!")
-                res.redirect("/")
+               req.flash("error_msg", "Houve um erro ao listar o Post")
+               res.redirect("/")
             })
 
         } else {
@@ -98,11 +100,10 @@ app.get("/categorias/:slug", (req, res) => {
             res.redirect("/")
         }
 
+    }).catch((err)=>{
+
     })
 
-}).catch((err) => {
-    req.flash("error_msg", "Erro ao caregar a pagina desta categoria")
-    res.redirect("/")
 })
 
 app.get("/404", (req, res) => {
@@ -111,6 +112,7 @@ app.get("/404", (req, res) => {
 
 
 app.use('/admin', admin)
+app.use('/usuarios', usuarios)
 
 app.get('/posts', (req, res) => {
     res.send('Rota para os posts: ')
